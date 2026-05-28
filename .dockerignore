@@ -1,0 +1,12 @@
+.gradle
+build
+out
+.git
+.gitignore
+Dockerfile
+.vscode
+gradlew
+gradlew.bat
+gradle
+*.txt
+HELP.md
