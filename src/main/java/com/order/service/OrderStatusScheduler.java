@@ -25,10 +25,9 @@ public class OrderStatusScheduler {
     public void processOrderStatus() {
         System.out.println("Checking order status");
         int pageSize = 100;
-        long offset = 0;
 
         while (true) {
-            List<Order> orders = orderRepository.findByStatusPending(offset, pageSize);
+            List<Order> orders = orderRepository.findByStatusPending(0, pageSize);
             if (orders.isEmpty()) {
                 break;
             }
@@ -38,7 +37,6 @@ public class OrderStatusScheduler {
                 orderRepository.save(order);
                 System.out.println("Processed order " + order.getId() + "with status" + order.getStatus());
             }
-            offset += pageSize;
         }
 
     }
