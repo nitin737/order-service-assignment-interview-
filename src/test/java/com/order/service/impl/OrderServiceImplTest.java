@@ -22,7 +22,6 @@ import com.order.model.Order;
 import com.order.model.OrderItem;
 import com.order.model.OrderStatus;
 import com.order.repository.OrderRepository;
-import com.order.service.impl.OrderServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 public class OrderServiceImplTest {
