@@ -20,7 +20,6 @@ public class OrderStatusScheduler {
 
     private OrderRepository orderRepository;
 
-    @Transactional
     @Scheduled(fixedRate = 300000)
     public void processOrderStatus() {
         System.out.println("Checking order status");
