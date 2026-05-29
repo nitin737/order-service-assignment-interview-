@@ -16,13 +16,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "orders")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
 
     @Id
@@ -43,10 +47,13 @@ public class Order {
 
     public static Order toOrder(OrderRequest orderRequest) {
         List<OrderItemRequest> orderItemRequests = orderRequest.getItems();
+        List<OrderItem> orderItems = OrderItem.toOrderItems(orderItemRequests);
+        double total = orderItems.stream().mapToDouble(OrderItem::getSubTotal).sum();
         return Order.builder()
                 .customerId(orderRequest.getCustomerId())
-                .items(OrderItem.toOrderItems(orderItemRequests))
+                .items(orderItems)
                 .status(OrderStatus.PENDING)
+                .totalAmount(total)
                 .createdAt(Instant.now())
                 .updatedAt(Instant.now())
                 .build();

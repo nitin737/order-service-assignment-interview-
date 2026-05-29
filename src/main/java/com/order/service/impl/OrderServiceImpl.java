@@ -1,7 +1,6 @@
 package com.order.service.impl;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,7 +11,6 @@ import com.order.dto.OrderRequest;
 import com.order.dto.OrderResponse;
 import com.order.exception.OrderNotFoundException;
 import com.order.model.Order;
-import com.order.model.OrderItem;
 import com.order.model.OrderStatus;
 import com.order.repository.OrderRepository;
 import com.order.service.OrderService;
@@ -45,11 +43,10 @@ public class OrderServiceImpl implements OrderService {
     public OrderResponse updateOrderStatus(Long id, OrderStatus status) throws OrderNotFoundException {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundException("Order Not Found"));
-        Order orderWithUpdatedStatus = Order.builder().items(order.getItems()).status(status)
-                .updatedAt(Instant.now())
-                .build();
+        order.setStatus(status);
+        order.setUpdatedAt(Instant.now());
 
-        Order updatedOrder = orderRepository.save(orderWithUpdatedStatus);
+        Order updatedOrder = orderRepository.save(order);
         return OrderResponse.toOrderResponse(updatedOrder);
     }
 
