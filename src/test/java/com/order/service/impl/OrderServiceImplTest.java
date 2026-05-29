@@ -1,4 +1,4 @@
-package com.order;
+package com.order.service.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -25,7 +25,7 @@ import com.order.repository.OrderRepository;
 import com.order.service.impl.OrderServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
-public class OrderServiceTest {
+public class OrderServiceImplTest {
 
     @Mock
     private OrderRepository orderRepository;

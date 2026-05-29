@@ -34,8 +34,12 @@ public class OrderStatusScheduler {
             for (Order order : orders) {
                 System.out.println("Processing order " + order.getId() + "with status" + order.getStatus());
                 order.setStatus(OrderStatus.PROCESSING);
-                orderRepository.save(order);
-                System.out.println("Processed order " + order.getId() + "with status" + order.getStatus());
+            }
+            try {
+                orderRepository.saveAll(orders);
+            } catch (Exception e) {
+                System.err.println("Error saving batch of orders: " + e.getMessage());
+                return;
             }
         }
 
